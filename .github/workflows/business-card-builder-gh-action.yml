@@ -1,0 +1,22 @@
+name: Bussiness Card Builder
+
+on:
+  push:
+    branches:
+      - source
+  repository_dispatch:
+    types: [redeploy]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Build
+        uses: SophiaSaiada/business-card-builder-gh-action@master
+        with:
+          access-token: ${{ secrets.ACCESS_TOKEN }}
+          on-done-webhook-url: ${{ secrets.ON_PUBLISH_DONE_WEBHOOK_URL }}
+          builder-script-version: ^0.0.1
+
